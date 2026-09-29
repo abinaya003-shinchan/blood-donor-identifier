@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Donors | Blood Donor Identifier</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        header {
+            background: #b30000;
+            color: white;
+            padding: 20px 8%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            font-size: 22px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title h1 {
+            color: #b30000;
+            margin-bottom: 10px;
+        }
+
+        .title p {
+            color: #666;
+        }
+
+        .donor-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 18px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .donor-card h3 {
+            color: #b30000;
+            margin-bottom: 15px;
+        }
+
+        .donor-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+
+            color: #555;
+        }
+
+        .blood {
+            color: #b30000;
+            font-weight: bold;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .available {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .unavailable {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .action {
+            margin-top: 18px;
+        }
+
+        .action button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 7px;
+
+            background: #b30000;
+            color: white;
+
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .action button:hover {
+            background: #8f0000;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+
+            color: #b30000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+
+            background: #222;
+            color: white;
+
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 7px;
+            }
+
+            .donor-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h2>🩸 Blood Donor Identifier</h2>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="/register">Register</a>
+
+        <a href="/search">Find Donor</a>
+
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+
+    <div class="title">
+
+        <h1>👥 Donor Management</h1>
+
+        <p>
+            Manage donor availability and registration details.
+        </p>
+
+    </div>
+
+
+    {% for donor in donors %}
+
+
+    <div class="donor-card">
+
+
+        <h3>
+            🩸 {{ donor["name"] }}
+        </h3>
+
+
+        <div class="donor-info">
+
+            <p>
+                <strong>Age:</strong>
+                {{ donor["age"] }}
+            </p>
+
+            <p>
+                <strong>Blood Group:</strong>
+
+                <span class="blood">
+                    {{ donor["blood_group"] }}
+                </span>
+
+            </p>
+
+            <p>
+                <strong>City:</strong>
+                {{ donor["city"] }}
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                {{ donor["phone"] }}
+            </p>
+
+        </div>
+
+
+        {% if donor["availability"] == "Available" %}
+
+            <span class="status available">
+                ✓ Available
+            </span>
+
+            <div class="action">
+
+                <form method="POST" action="/toggle/{{ donor['id'] }}">
+
+                    <button type="submit">
+                        Mark as Unavailable
+                    </button>
+
+                </form>
+
+            </div>
+
+        {% else %}
+
+            <span class="status unavailable">
+                ✕ Not Available
+            </span>
+
+            <div class="action">
+
+                <form method="POST" action="/toggle/{{ donor['id'] }}">
+
+                    <button type="submit">
+                        Mark as Available
+                    </button>
+
+                </form>
+
+            </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+    {% endfor %}
+
+
+    <a href="/" class="back">
+        ← Back to Home
+    </a>
+
+
+</div>
+
+
+<footer>
+
+    <p>
+        Blood Donor Identifier | AI & DS Mini Project
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Find Donor | Blood Donor Identifier</title>
 
+
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -14,23 +19,30 @@
             font-family: Arial, sans-serif;
         }
 
+
         body {
             background: #f5f7fa;
             color: #222;
         }
 
+
+        /* Header */
+
         header {
             background: #b30000;
             color: white;
             padding: 20px 8%;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+
         header h2 {
             font-size: 22px;
         }
+
 
         nav a {
             color: white;
@@ -39,18 +51,33 @@
             font-weight: bold;
         }
 
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* Main container */
+
         .container {
             width: 90%;
             max-width: 900px;
             margin: 40px auto;
         }
 
+
+        /* Search card */
+
         .search-card {
             background: white;
             padding: 35px;
+
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.08);
         }
+
 
         .search-card h1 {
             text-align: center;
@@ -58,20 +85,26 @@
             margin-bottom: 10px;
         }
 
+
         .subtitle {
             text-align: center;
             color: #666;
             margin-bottom: 30px;
         }
 
+
+        /* Form */
+
         .form-row {
             display: flex;
             gap: 15px;
         }
 
+
         .form-group {
             flex: 1;
         }
+
 
         label {
             display: block;
@@ -79,169 +112,369 @@
             margin-bottom: 7px;
         }
 
+
         input,
         select {
+
             width: 100%;
+
             padding: 13px;
+
             border: 1px solid #ccc;
+
             border-radius: 7px;
+
             font-size: 15px;
         }
 
+
+        input:focus,
+        select:focus {
+
+            outline: none;
+
+            border-color: #b30000;
+        }
+
+
+        /* Search button */
+
         button {
+
             width: 100%;
+
             margin-top: 20px;
+
             padding: 14px;
+
             border: none;
+
             border-radius: 8px;
+
             background: #b30000;
+
             color: white;
+
             font-size: 16px;
+
             font-weight: bold;
+
             cursor: pointer;
         }
+
 
         button:hover {
             background: #8f0000;
         }
 
+
+        /* Results */
+
         .results {
             margin-top: 30px;
         }
 
+
         .results h2 {
+
             margin-bottom: 20px;
+
             color: #333;
         }
 
+
+        /* Donor card */
+
         .donor-card {
+
             background: white;
+
             padding: 22px;
+
             margin-bottom: 15px;
+
             border-radius: 12px;
+
             border-left: 5px solid #b30000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.07);
         }
 
+
         .donor-card h3 {
+
             color: #b30000;
+
             margin-bottom: 12px;
         }
 
+
+        /* Match badges */
+
+        .match-badge {
+
+            display: inline-block;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+
+        .exact-match {
+
+            background: #e8f5e9;
+
+            color: #2e7d32;
+        }
+
+
+        .compatible-match {
+
+            background: #fff3e0;
+
+            color: #e65100;
+        }
+
+
+        /* Donor information */
+
         .donor-info {
+
             display: grid;
+
             grid-template-columns: 1fr 1fr;
+
             gap: 10px;
+
             color: #555;
         }
 
+
         .blood {
+
             font-weight: bold;
+
             color: #b30000;
         }
+
+
+        /* Availability */
 
         .available {
+
             display: inline-block;
+
             margin-top: 15px;
+
             padding: 6px 12px;
+
             background: #e8f5e9;
+
             color: #2e7d32;
+
             border-radius: 20px;
+
             font-size: 13px;
+
             font-weight: bold;
         }
 
+
+        /* No result */
+
         .no-result {
+
             background: white;
-            padding: 25px;
+
+            padding: 30px;
+
             text-align: center;
+
             border-radius: 12px;
+
             color: #777;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.06);
         }
+
+
+        .no-result h3 {
+
+            color: #b30000;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* Back link */
 
         .back {
+
             display: block;
+
             text-align: center;
+
             margin-top: 20px;
+
             color: #b30000;
+
             text-decoration: none;
+
+            font-weight: bold;
         }
 
+
+        /* Footer */
+
         footer {
+
             text-align: center;
+
             padding: 20px;
+
             background: #222;
+
             color: white;
+
             margin-top: 40px;
         }
+
+
+        /* Mobile */
 
         @media (max-width: 600px) {
 
             header {
+
                 flex-direction: column;
+
                 gap: 15px;
             }
 
+
             nav a {
+
                 margin: 0 7px;
             }
 
+
             .form-row {
+
                 flex-direction: column;
             }
 
+
             .donor-info {
+
                 grid-template-columns: 1fr;
             }
+
+
+            .search-card {
+
+                padding: 25px;
+            }
+
         }
+
     </style>
+
 </head>
 
+
 <body>
+
+
+<!-- Header -->
 
 <header>
 
     <h2>🩸 Blood Donor Identifier</h2>
 
+
     <nav>
+
         <a href="/">Home</a>
+
         <a href="/register">Register</a>
+
         <a href="/search">Find Donor</a>
+
     </nav>
 
 </header>
 
 
+
+<!-- Main -->
+
 <div class="container">
+
+
+    <!-- Search section -->
 
     <div class="search-card">
 
+
         <h1>🔍 Find a Blood Donor</h1>
 
+
         <p class="subtitle">
-            Search for available donors based on blood group and city.
+
+            Search for available donors based on
+            blood group and city.
+
         </p>
+
 
 
         <form method="POST" action="/search">
 
+
             <div class="form-row">
+
+
+                <!-- Blood group -->
 
                 <div class="form-group">
 
-                    <label>Blood Group</label>
+                    <label>
+                        Required Blood Group
+                    </label>
 
-                    <select name="blood_group" required>
 
-                        <option value="">Select Blood Group</option>
+                    <select
+                        name="blood_group"
+                        required
+                    >
+
+                        <option value="">
+                            Select Blood Group
+                        </option>
 
                         <option value="A+">A+</option>
+
                         <option value="A-">A-</option>
+
                         <option value="B+">B+</option>
+
                         <option value="B-">B-</option>
+
                         <option value="AB+">AB+</option>
+
                         <option value="AB-">AB-</option>
+
                         <option value="O+">O+</option>
+
                         <option value="O-">O-</option>
 
                     </select>
@@ -249,9 +482,15 @@
                 </div>
 
 
+
+                <!-- City -->
+
                 <div class="form-group">
 
-                    <label>City</label>
+                    <label>
+                        City
+                    </label>
+
 
                     <input
                         type="text"
@@ -262,98 +501,212 @@
 
                 </div>
 
+
             </div>
+
 
 
             <button type="submit">
+
                 🔍 Find Available Donors
+
             </button>
+
 
         </form>
 
+
     </div>
 
+
+
+    <!-- Results -->
 
     {% if donors %}
 
+
     <div class="results">
 
-        <h2>Available Donors</h2>
+
+        <h2>
+            🩸 Matching Donors
+        </h2>
+
+
 
         {% for donor in donors %}
 
+
         <div class="donor-card">
 
-            <h3>🩸 {{ donor["name"] }}</h3>
+
+            <h3>
+                🩸 {{ donor["name"] }}
+            </h3>
+
+
+
+            <!-- Match type -->
+
+            {% if donor["match_priority"] == 1 %}
+
+
+                <span class="match-badge exact-match">
+
+                    🎯 EXACT MATCH
+
+                </span>
+
+
+            {% else %}
+
+
+                <span class="match-badge compatible-match">
+
+                    🔗 COMPATIBLE MATCH
+
+                </span>
+
+
+            {% endif %}
+
+
+
+            <!-- Donor information -->
 
             <div class="donor-info">
 
+
                 <p>
-                    <strong>Age:</strong>
+
+                    <strong>
+                        Age:
+                    </strong>
+
                     {{ donor["age"] }}
+
                 </p>
 
+
+
                 <p>
-                    <strong>Blood Group:</strong>
+
+                    <strong>
+                        Blood Group:
+                    </strong>
+
                     <span class="blood">
+
                         {{ donor["blood_group"] }}
+
                     </span>
+
                 </p>
 
+
+
                 <p>
-                    <strong>City:</strong>
+
+                    <strong>
+                        City:
+                    </strong>
+
                     {{ donor["city"] }}
+
                 </p>
 
+
+
                 <p>
-                    <strong>Phone:</strong>
+
+                    <strong>
+                        Phone:
+                    </strong>
+
                     {{ donor["phone"] }}
+
                 </p>
+
 
             </div>
 
+
+
+            <!-- Availability -->
+
             <span class="available">
+
                 ✓ Available
+
             </span>
 
+
         </div>
+
 
         {% endfor %}
 
+
     </div>
+
+
 
     {% elif request.method == "POST" %}
 
+
+    <!-- No results -->
+
     <div class="results">
+
 
         <div class="no-result">
 
-            <h3>❌ No Matching Donors Found</h3>
+
+            <h3>
+                No Matching Donors Found
+            </h3>
+
 
             <p>
-                No available donor was found for the selected
-                blood group and city.
+
+                No available donor was found for
+                the selected blood group and city.
+
             </p>
+
 
         </div>
 
+
     </div>
+
 
     {% endif %}
 
 
+
     <a href="/" class="back">
+
         ← Back to Home
+
     </a>
+
 
 </div>
 
 
+
+<!-- Footer -->
+
 <footer>
 
-    <p>Blood Donor Identifier | AI & DS Mini Project</p>
+    <p>
+        Blood Donor Identifier | AI & DS Mini Project
+    </p>
 
 </footer>
 
+
 </body>
+
 </html>

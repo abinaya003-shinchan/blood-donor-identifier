@@ -3,33 +3,26 @@ from database.database import init_db, get_db_connection
 
 app = Flask(__name__)
 
-# Create database and table
 init_db()
 
 
-# Blood compatibility rules
 COMPATIBLE_DONORS = {
     "A+": ["A+", "A-", "O+", "O-"],
     "A-": ["A-", "O-"],
     "B+": ["B+", "B-", "O+", "O-"],
     "B-": ["B-", "O-"],
-    "AB+": [
-        "A+", "A-", "B+", "B-",
-        "AB+", "AB-", "O+", "O-"
-    ],
+    "AB+": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
     "AB-": ["A-", "B-", "AB-", "O-"],
     "O+": ["O+", "O-"],
     "O-": ["O-"]
 }
 
 
-# Home page
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-# Donor registration
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
@@ -63,7 +56,6 @@ def register():
     return render_template("register.html")
 
 
-# Donor search
 @app.route("/search", methods=["GET", "POST"])
 def search():
 
@@ -74,29 +66,22 @@ def search():
         required_blood = request.form["blood_group"]
         city = request.form["city"]
 
-        # Get compatible blood groups
         compatible_groups = COMPATIBLE_DONORS[required_blood]
 
-        # Create SQL placeholders
         placeholders = ",".join(
             ["?"] * len(compatible_groups)
         )
 
-        # Exact match gets priority 1
-        # Other compatible groups get priority 2
         query = f"""
             SELECT *,
             CASE
                 WHEN blood_group = ? THEN 1
                 ELSE 2
             END AS match_priority
-
             FROM donors
-
             WHERE blood_group IN ({placeholders})
             AND city = ?
             AND availability = 'Available'
-
             ORDER BY match_priority ASC
         """
 
@@ -119,6 +104,59 @@ def search():
     )
 
 
-# Run application
+# Admin / donor management
+@app.route("/admin")
+def admin():
+
+    conn = get_db_connection()
+
+    donors = conn.execute("""
+        SELECT * FROM donors
+        ORDER BY id DESC
+    """).fetchall()
+
+    conn.close()
+
+    return render_template(
+        "admin.html",
+        donors=donors
+    )
+
+
+# Change donor availability
+@app.route("/toggle/<int:donor_id>", methods=["POST"])
+def toggle_availability(donor_id):
+
+    conn = get_db_connection()
+
+    donor = conn.execute("""
+        SELECT availability
+        FROM donors
+        WHERE id = ?
+    """, (donor_id,)).fetchone()
+
+    if donor:
+
+        if donor["availability"] == "Available":
+            new_status = "Not Available"
+        else:
+            new_status = "Available"
+
+        conn.execute("""
+            UPDATE donors
+            SET availability = ?
+            WHERE id = ?
+        """, (
+            new_status,
+            donor_id
+        ))
+
+        conn.commit()
+
+    conn.close()
+
+    return redirect("/admin")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
