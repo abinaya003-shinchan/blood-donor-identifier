@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register as Donor</title>
+</head>
+<body>
+
+    <h1>🩸 Donor Registration</h1>
+
+    <form method="POST" action="/register">
+
+        <label>Name:</label><br>
+        <input type="text" name="name" required><br><br>
+
+        <label>Age:</label><br>
+        <input type="number" name="age" min="18" required><br><br>
+
+        <label>Blood Group:</label><br>
+        <select name="blood_group" required>
+            <option value="">Select Blood Group</option>
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+            <option>O+</option>
+            <option>O-</option>
+        </select><br><br>
+
+        <label>Phone:</label><br>
+        <input type="tel" name="phone" required><br><br>
+
+        <label>City:</label><br>
+        <input type="text" name="city" required><br><br>
+
+        <button type="submit">Register Donor</button>
+
+    </form>
+
+</body>
+</html>
