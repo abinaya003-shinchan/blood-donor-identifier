@@ -3,6 +3,7 @@ from database.database import init_db, get_db_connection
 
 app = Flask(__name__)
 
+# Create database and table
 init_db()
 
 
@@ -34,6 +35,28 @@ def register():
         return redirect("/")
 
     return render_template("register.html")
+
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    donors = []
+
+    if request.method == "POST":
+        blood_group = request.form["blood_group"]
+        city = request.form["city"]
+
+        conn = get_db_connection()
+
+        donors = conn.execute("""
+            SELECT * FROM donors
+            WHERE blood_group = ?
+            AND city = ?
+            AND availability = 'Available'
+        """, (blood_group, city)).fetchall()
+
+        conn.close()
+
+    return render_template("search.html", donors=donors)
 
 
 if __name__ == "__main__":

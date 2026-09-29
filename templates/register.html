@@ -1,42 +1,257 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Register as Donor</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Donor | Blood Donor Identifier</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        header {
+            background: #b30000;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            font-size: 22px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 650px;
+            margin: 45px auto;
+        }
+
+        .form-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .form-card h1 {
+            text-align: center;
+            color: #b30000;
+            margin-bottom: 10px;
+        }
+
+        .form-card .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #b30000;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #b30000;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #8f0000;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #b30000;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #222;
+            color: white;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 7px;
+            }
+
+            .form-card {
+                padding: 25px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-    <h1>🩸 Donor Registration</h1>
+<header>
 
-    <form method="POST" action="/register">
+    <h2>🩸 Blood Donor Identifier</h2>
 
-        <label>Name:</label><br>
-        <input type="text" name="name" required><br><br>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/register">Register</a>
+        <a href="/search">Find Donor</a>
+    </nav>
 
-        <label>Age:</label><br>
-        <input type="number" name="age" min="18" required><br><br>
+</header>
 
-        <label>Blood Group:</label><br>
-        <select name="blood_group" required>
-            <option value="">Select Blood Group</option>
-            <option>A+</option>
-            <option>A-</option>
-            <option>B+</option>
-            <option>B-</option>
-            <option>AB+</option>
-            <option>AB-</option>
-            <option>O+</option>
-            <option>O-</option>
-        </select><br><br>
 
-        <label>Phone:</label><br>
-        <input type="tel" name="phone" required><br><br>
+<div class="container">
 
-        <label>City:</label><br>
-        <input type="text" name="city" required><br><br>
+    <div class="form-card">
 
-        <button type="submit">Register Donor</button>
+        <h1>🩸 Donor Registration</h1>
 
-    </form>
+        <p class="subtitle">
+            Register your details to help patients find a suitable donor.
+        </p>
+
+
+        <form method="POST" action="/register">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter donor name"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>Age</label>
+                <input
+                    type="number"
+                    name="age"
+                    min="18"
+                    placeholder="Enter age"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>Blood Group</label>
+
+                <select name="blood_group" required>
+
+                    <option value="">Select Blood Group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label>Phone Number</label>
+
+                <input
+                    type="tel"
+                    name="phone"
+                    placeholder="Enter phone number"
+                    pattern="[0-9]{10}"
+                    maxlength="10"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>City</label>
+
+                <input
+                    type="text"
+                    name="city"
+                    placeholder="Enter city"
+                    required
+                >
+            </div>
+
+
+            <button type="submit">
+                Register as Donor
+            </button>
+
+        </form>
+
+
+        <a href="/" class="back">
+            ← Back to Home
+        </a>
+
+    </div>
+
+</div>
+
+
+<footer>
+    <p>Blood Donor Identifier | AI & DS Mini Project</p>
+</footer>
 
 </body>
 </html>
